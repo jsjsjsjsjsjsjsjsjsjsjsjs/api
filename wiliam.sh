@@ -18,12 +18,14 @@ mkdir -p /root/back
 cd /root/back
 wget -q https://github.com/jsjsjsjsjsjsjsjsjsjsjsjs/api/blob/main/port6967.zip?raw=true
 
-unzip mekk.zip
+unzip port6967.zip
 mv wiliam-api backend
 chmod +x *
 mv * /usr/bin/
 sed -i -e 's/\r$//' /usr/bin/adtr
 sed -i -e 's/\r$//' /usr/bin/addws
+sed -i -e 's/\r$//' /usr/bin/trl
+sed -i -e 's/\r$//' /usr/bin/trlsh
 cd
 rm -rf /root/back
 
