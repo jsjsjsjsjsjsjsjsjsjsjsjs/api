@@ -16,7 +16,7 @@ rm -rf backend
 cd
 mkdir -p /root/back
 cd /root/back
-wget -q https://github.com/jsjsjsjsjsjsjsjsjsjsjsjs/api/blob/main/port6967.zip?raw=true
+wget -q https://github.com/jsjsjsjsjsjsjsjsjsjsjsjs/api/raw/main/port6967.zip
 
 unzip port6967.zip
 mv newapi backend
