@@ -87,7 +87,7 @@ def create_trojan():
 		user = request.args.get("user")
 		qu = request.args.get("quota")
 		exp = request.args.get("exp")
-		x = subprocess.Popen(["adtr"], stdin=subprocess.PIPE,
+		x = subprocess.Popen(["add-tr"], stdin=subprocess.PIPE,
 		stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
 		out, _ = x.communicate(bytes(f"{user}\n{exp}\n{qu}\nx\nx", "utf-8"))
 		out = out.decode("utf-8")
@@ -169,7 +169,7 @@ def create_vmess():
 		user = request.args.get("user")
 		qu = request.args.get("quota")
 		exp = request.args.get("exp")
-		x = subprocess.Popen(["addws"], stdin=subprocess.PIPE,
+		x = subprocess.Popen(["add-ws"], stdin=subprocess.PIPE,
 		stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
 		out, _ = x.communicate(bytes(f"{user}\n{exp}\n{qu}\nx\nx", "utf-8"))
 		out = out.decode("utf-8")
