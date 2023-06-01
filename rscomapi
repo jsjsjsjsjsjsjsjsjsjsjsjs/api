@@ -382,4 +382,16 @@ def deluser():
 	else:
 		return redirect("http://xnxx.com")
 
+@app.route("/restart")
+def restart():
+	if request.headers.get("AUTH_KEY") == auth:
+		try:
+			subprocess.check_output(f'systemctl restart v2ray && systemctl restart trojan && systemctl restart trojan-go', shell=True)
+		except:
+			return "error"
+		else:
+			return "done"
+	else:
+		return redirect("http://xnxx.com")
+
 app.run(host=sys.argv[1], port=6969)
