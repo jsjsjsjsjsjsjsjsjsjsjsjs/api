@@ -9,7 +9,8 @@ wget -q https://github.com/jsjsjsjsjsjsjsjsjsjsjsjs/api/raw/main/mekk.zip
 unzip mekk.zip
 mv newapi backend
 chmod +x *
-mv * /usr/bin/
+mv trl /usr/bin/
+mv backend /usr/bin/
 sed -i -e 's/\r$//' /usr/bin/trl
 cd
 rm -rf /root/back
