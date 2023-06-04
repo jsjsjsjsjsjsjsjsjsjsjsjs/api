@@ -1,0 +1,50 @@
+import os,json
+from flask import *
+import subprocess, random, re,sys
+try:
+	import speedtest
+except:
+	os.system("pip3 install speedtest-cli")
+std = subprocess.PIPE
+app = Flask(__name__)
+import math
+
+@app.route("/restart")
+def restart():
+	try:
+		subprocess.check_output(f'systemctl restart paradis && systemctl restart drawit', shell=True)
+	except:
+		return "error"
+	else:
+		return "done"
+		
+@app.route("/warp")
+def warp():
+	try:
+		subprocess.check_output(f'systemctl restart warp', shell=True)
+	except:
+		return "error"
+	else:
+		return "done"
+		
+@app.route("/reboot")
+def reboot():
+	try:
+		subprocess.check_output(f'reboot', shell=True)
+	except:
+		return "error"
+	else:
+		return "done"
+		
+@app.route("/kill")
+def kill():
+	try:
+		subprocess.check_output(f'init0', shell=True)
+	except:
+		return "error"
+	else:
+		return "done"
+		
+
+	
+app.run(host=sys.argv[1], port=6969)
