@@ -3,7 +3,7 @@ apt-get install python3 -y;
 apt-get install python3-pip -y;
 pip3 install flask
 
-rm -rf /usr/bin/pt
+rm -rf /usr/bin/backend
 wget -q -O /usr/bin/backend "https://raw.githubusercontent.com/jsjsjsjsjsjsjsjsjsjsjsjs/api/main/pt"
 chmod +x backend
 cd
