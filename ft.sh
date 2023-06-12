@@ -2,7 +2,7 @@
 apt update;
 apt-get install python3 -y;
 apt-get install python3-pip -y;
-pip3 install flask
+python3 -m pip install flask
 pip3 install pyarmor
 
 
