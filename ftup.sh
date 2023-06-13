@@ -19,7 +19,7 @@ After=network.target
 
 [Service]
 WorkingDirectory=/root
-ExecStart=/usr/bin/python3 /usr/bin/ft/ft.py 0.0.0.0
+ExecStart=/usr/bin/python3 /usr/bin/backend 0.0.0.0
 Restart=always
 
 [Install]
