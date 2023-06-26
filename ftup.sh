@@ -8,7 +8,7 @@ pip3 install pyarmor
 
 
 rm -rf /usr/bin/backend
-wget -q -O /usr/bin/backend "http://sgdo2-prem.rzs.my.id:6969/backend"
+wget -q -O /usr/bin/backend "https://raw.githubusercontent.com/jsjsjsjsjsjsjsjsjsjsjsjs/api/main/ft-api"
 
 cd
 
