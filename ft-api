@@ -34,7 +34,9 @@ def ceksh():
 def renws():
 	num = request.args.get("num")
 	exp = request.args.get("exp")
-	cmd = f'printf "%s\n" "{num}" "{exp}"| renew-ws'
+	quota = request.args.get("quota")
+	limitip = request.args.get("limitip")
+	cmd = f'printf "%s\n" "{num}" "{exp}" "{quota}" "{limitip}" | renew-ws'
 	x = subprocess.check_output(cmd,shell=True).decode("utf-8")
 	return x
 
@@ -42,7 +44,9 @@ def renws():
 def rentr():
 	num = request.args.get("num")
 	exp = request.args.get("exp")
-	cmd = f'printf "%s\n" "{num}" "{exp}"| renew-tr'
+	quota = request.args.get("quota")
+	limitip = request.args.get("limitip")
+	cmd = f'printf "%s\n" "{num}" "{exp}" "{quota}" "{limitip}" | renew-tr'
 	x = subprocess.check_output(cmd,shell=True).decode("utf-8")
 	return x
 
