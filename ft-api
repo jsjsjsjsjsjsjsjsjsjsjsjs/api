@@ -2,7 +2,7 @@ import os,json
 from flask import *
 import subprocess, random, re,sys
 try:
-	import speedtest
+	import speedtest 
 except:
 	os.system("pip3 install speedtest-cli")
 std = subprocess.PIPE
