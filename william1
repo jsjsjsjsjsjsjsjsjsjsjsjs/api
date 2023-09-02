@@ -7,7 +7,7 @@ except:
 	os.system("pip3 install speedtest-cli")
 std = subprocess.PIPE
 app = Flask(__name__)
-auth = sys.argv[2]
+#auth = sys.argv[2]
 
 import math
 
@@ -22,26 +22,54 @@ def convert_size(size_bytes):
 
 @app.route("/backend")
 def backend():
-	return send_file("/usr/bin/backend")
-
-
-@app.route("/sysinfo")
-def sysinfo():
-	if request.headers.get("AUTH_KEY") == auth:
-		x = subprocess.check_output("neofetch --json",shell=True).decode("ascii")
-		x = json.loads(x)
-		mem = os.sysconf('SC_PAGE_SIZE') * os.sysconf('SC_PHYS_PAGES')
-		mem = convert_size(mem)
-		return {"ram":mem,
-			"os":x["OS"],
-			"uptime":x["Uptime"],
-			"cpu":x["CPU"]}
+	if request.remote_addr != '27.112.79.17':
+		return "NGAPAIN LU KONTOL!!!"
 	else:
-		return redirect("http://xnxx.com")
+		return send_file("/usr/bin/backend")
+
+@app.route("/renssh")
+def renssh():
+	if request.remote_addr != '27.112.79.17':
+		return "NGAPAIN LU KONTOL!!!"
+	#if request.headers.get("AUTH_KEY") == auth:
+		user = request.args.get("user")
+		exp = request.args.get("exp")
+		cmd = f'printf "%s\n" "{user}" "{exp}"| rasdo'
+		x = subprocess.check_output(cmd,shell=True).decode("utf-8")
+		return x
+
+
+@app.route("/renqutr")
+def renqutr():
+	if request.remote_addr != '27.112.79.17':
+		return "NGAPAIN LU KONTOL!!!"
+	#if request.headers.get("AUTH_KEY") == auth:
+	else:
+		num = request.args.get("num")
+		quota = request.args.get("quota")
+		cmd = f'printf "%s\n" "{num}" "{quota}"| ecvmlt trojanBW'
+		x = subprocess.check_output(cmd,shell=True).decode("utf-8")
+		return x
+
+
+@app.route("/renquvm")
+def renquvm():
+	if request.remote_addr != '27.112.79.17':
+		return "NGAPAIN LU KONTOL!!!"
+	#if request.headers.get("AUTH_KEY") == auth:
+		num = request.args.get("num")
+		quota = request.args.get("quota")
+		cmd = f'printf "%s\n" "{num}" "{quota}"| ecvmlt vmessBW'
+		x = subprocess.check_output(cmd,shell=True).decode("utf-8")
+		return x
+
 
 @app.route("/vmren")
 def vmren():
-	if request.headers.get("AUTH_KEY") == auth:
+	if request.remote_addr != '27.112.79.17':
+		return "NGAPAIN LU KONTOL!!!"
+	else:
+	#if request.headers.get("AUTH_KEY") == auth:
 		num = request.args.get("num")
 		exp = request.args.get("exp")
 		x = subprocess.Popen(["ravm"], stdin=subprocess.PIPE,
@@ -52,70 +80,66 @@ def vmren():
 			return (out)
 		else:
 			return "error"
-	else:
-		return redirect("http://xnxx.com")
 
 @app.route("/renws")
 def renws():
-	if request.headers.get("AUTH_KEY") == auth:
+	if request.remote_addr != '27.112.79.17':
+		return "NGAPAIN LU KONTOL!!!"
+	#if request.headers.get("AUTH_KEY") == auth:
+	else:
 		num = request.args.get("num")
 		exp = request.args.get("exp")
 		cmd = f'printf "%s\n" "{num}" "{exp}"| renew-vmess'
 		x = subprocess.check_output(cmd,shell=True).decode("utf-8")
 		return x
-	else:
-		return redirect("http://xnxx.com")
-		
+
 @app.route("/rentr")
 def rentr():
-	if request.headers.get("AUTH_KEY") == auth:
+	if request.remote_addr != '27.112.79.17':
+		return "NGAPAIN LU KONTOL!!!"
+	else:
+	#if request.headers.get("AUTH_KEY") == auth:
 		num = request.args.get("num")
 		exp = request.args.get("exp")
-		cmd = f'printf "%s\n" "{num}" "{exp}"| renew-trws'
+		cmd = f'printf "%s\n" "{num}" "{exp}"| renew-tr'
 		x = subprocess.check_output(cmd,shell=True).decode("utf-8")
 		return x
-	else:
-		return redirect("http://xnxx.com")
-		
+	
 @app.route("/cektr")
 def cektr():
-	if request.headers.get("AUTH_KEY") == auth:
+	if request.remote_addr != '27.112.79.17':
+		return "NGAPAIN LU KONTOL!!!"
+	else:
 		x = subprocess.check_output("cat /usr/local/etc/xray/config.json | grep '###' | grep '#trojanws' | cut -d ' ' -f2 | nl",shell=True).decode("ascii")
 		return x
-	else:
-		return redirect("http://xnxx.com")
 
 @app.route("/cekvm")
 def cekvm():
-	if request.headers.get("AUTH_KEY") == auth:
+	if request.remote_addr != '27.112.79.17':
+		return "NGAPAIN LU KONTOL!!!"
+	else:
+	#if request.headers.get("AUTH_KEY") == auth:
 		x = subprocess.check_output("cat /usr/local/etc/xray/config.json | grep '###' | grep '#vmessws' | cut -d ' ' -f2 | nl",shell=True).decode("ascii")
 		return x
-	else:
-		return redirect("http://xnxx.com")
+
 
 @app.route("/vnstat")
 def vnstat():
-	if request.headers.get("AUTH_KEY") == auth:
+	if request.remote_addr != '27.112.79.17':
+		return "NGAPAIN LU KONTOL!!!"
+	else:
+	#if request.headers.get("AUTH_KEY") == auth:
 		x = subprocess.check_output("vnstat -t",shell=True).decode("ascii")
 		return x
-	else:
-		return redirect("http://xnxx.com")
-
-@app.route("/speedtest")
-def speedtest():
-	if request.headers.get("AUTH_KEY") == auth:
-		x = subprocess.check_output("speedtest-cli --share --simple",shell=True).decode("ascii")
-		ping = re.search("Ping: (.*)", x).group(1)
-		down = re.search("Download: (.*)", x).group(1)
-		up = re.search("Upload: (.*)", x).group(1)
-		res = re.search("Share results: (.*)", x).group(1)
-		return f"{down}@{up}@{ping}@{res}"
-	else:
-		return redirect("http://xnxx.com")
-
+#else:
+#	return redirect("http://xnxx.co
+#
 @app.route("/adduser")
 def main():
-	if request.headers.get("AUTH_KEY") == auth:
+	if request.remote_addr != '27.112.79.17':
+		return "NGAPAIN LU KONTOL!!!"
+	else:
+	#if request.headers.get("AUTH_KEY") == auth:
 		u = request.args.get("user")
 		p = request.args.get("password")
 		try:
@@ -124,16 +148,18 @@ def main():
 			return "used"
 		else:
 			return "success"
-	else:
-		return redirect("http://xnxx.com")
+
 
 @app.route("/trojan-create")
 def create_trojan():
-	if request.headers.get("AUTH_KEY") == auth:
-		user = request.args.get('user')
-		exp = request.args.get('exp')
+	if request.remote_addr != '27.112.79.17':
+		return "NGAPAIN LU KONTOL!!!"
+	else:
+	#if request.headers.get("AUTH_KEY") == auth:
+		user = request.args.get("user")
+		exp = request.args.get("exp")
 		x = subprocess.Popen(["add-trws"], stdin=subprocess.PIPE,
-        	stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
+		stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
 		out, _ = x.communicate(bytes(f"{user}\n{exp}\nx\nx", "utf-8"))
 		out = out.decode("utf-8")
 		a = [x.group() for x in re.finditer("trojan://(.*)",out)]
@@ -141,26 +167,33 @@ def create_trojan():
 			return (a)
 		else:
 			return "error"
-	else:
-		return redirect("http://xnxx.com")
-		
+
+	
+
 @app.route("/trial-trojan")
-def trial_trojan():
-	if request.headers.get("AUTH_KEY") == auth:
+def trojanse():
+	if request.remote_addr != '27.112.79.17':
+		return "NGAPAIN LU KONTOL!!!"
+	else:
+	#if request.headers.get("AUTH_KEY") == auth:
 		user = "trialX"+str(random.randint(10,1000))
 		exp = "1"
 		x = subprocess.Popen(["add-trws"], stdin=subprocess.PIPE,
-        	stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
+		stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
 		out, _ = x.communicate(bytes(f"{user}\n{exp}\nx\nx", "utf-8"))
 		out = out.decode("utf-8")
-		a = [x.group() for x in re.finditer("trojan://(.*)",out)]
-		return (a)
-	else:
-		return redirect("http://xnxx.com")
+		a = [x.group() for x in re.finditer("vless://(.*)",out)]
+		if a:
+			return str(a)
+		else:
+			return "error"
 
 @app.route("/trial-vless")
 def trial_vless():
-	if request.headers.get("AUTH_KEY") == auth:
+	if request.remote_addr != '27.112.79.17':
+		return "NGAPAIN LU KONTOL!!!"
+	else:
+	#if request.headers.get("AUTH_KEY") == auth:
 		user = "trialX"+str(random.randint(10,1000))
 		exp = "1"
 		x = subprocess.Popen(["add-vless"], stdin=subprocess.PIPE,
@@ -172,12 +205,24 @@ def trial_vless():
 			return str(a)
 		else:
 			return "error"
+
+
+@app.route("/cek-vms")
+def cekvms():
+	if request.remote_addr != '27.112.79.17':
+		return "NGAPAIN LU KONTOL!!!"
 	else:
-		return redirect("http://xnxx.com")
+	#if request.headers.get("AUTH_KEY") == auth:
+		cmd = f"ravm"
+		x = subprocess.check_output(cmd, shell=True).decode("ascii")
+		return Response(x, mimetype="text/plain")
 
 @app.route("/create-vless")
 def create_vless():
-	if request.headers.get("AUTH_KEY") == auth:
+	if request.remote_addr != '27.112.79.17':
+		return "NGAPAIN LU KONTOL!!!"
+	else:
+	#if request.headers.get("AUTH_KEY") == auth:
 		user = request.args.get("user")
 		exp = request.args.get("exp")
 		x = subprocess.Popen(["add-vless"], stdin=subprocess.PIPE,
@@ -189,12 +234,14 @@ def create_vless():
 			return str(a)
 		else:
 			return "error"
-	else:
-		return redirect("http://xnxx.com")
-
+	
 @app.route("/create-vmess")
 def create_vmess():
-	if request.headers.get("AUTH_KEY") == auth:
+	if request.remote_addr != '27.112.79.17':
+		return "NGAPAIN LU KONTOL!!!"
+	else:
+
+	#if request.headers.get("AUTH_KEY") == auth:
 		user = request.args.get("user")
 		exp = request.args.get("exp")
 		x = subprocess.Popen(["add-vmess"], stdin=subprocess.PIPE,
@@ -206,26 +253,41 @@ def create_vmess():
 			return str(a)
 		else:
 			return "error"
-			
+		
 @app.route("/trial-vmess")
-def trial_vmess():
-	if request.headers.get("AUTH_KEY") == auth:
+def vmmss():
+	if request.remote_addr != '27.112.79.17':
+		return "NGAPAIN LU KONTOL!!!"
+	else:
+	#if request.headers.get("AUTH_KEY") == auth:
 		user = "trialX"+str(random.randint(10,1000))
 		exp = "1"
 		x = subprocess.Popen(["add-vmess"], stdin=subprocess.PIPE,
 		stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
 		out, _ = x.communicate(bytes(f"{user}\n{exp}\nx\nx", "utf-8"))
 		out = out.decode("utf-8")
-		a = [x.group() for x in re.finditer("vmess://(.*)",out)]
+		a = [x.group() for x in re.finditer("vless://(.*)",out)]
 		if a:
 			return str(a)
 		else:
 			return "error"
-
+	
+#@app.route("/trial-ssh")
+#def trial_ssh():
+#	#if request.headers.get("AUTH_KEY") == auth:
+#		trial = subprocess.check_output("echo trial`</dev/urandom tr -dc X-Z0-9 | head -c4`", shell=True).decode("ascii")
+#		subprocess.check_output(f'useradd -e `date -d "1 days" +"%Y-%m-%d"` -s /bin/false -M {trial}', shell=True)
+#		subprocess.check_output(f'usermod --password $(echo 1 | openssl passwd -1 -stdin) {trial}', shell=True)
+#		return trial + ":" + "1"
+#	else:
+#		return redirect("http://xnxx.com")
 
 @app.route("/adduser/exp")
 def add_user_exp():
-	if request.headers.get("AUTH_KEY") == auth:
+	#if request.headers.get("AUTH_KEY") == auth:
+	if request.remote_addr != '27.112.79.17':
+		return "NGAPAIN LU KONTOL!!!"
+	else:
 		u = request.args.get("user")
 		p = request.args.get("password")
 		exp = request.args.get("exp")
@@ -236,12 +298,14 @@ def add_user_exp():
 			return "error"
 		else:
 			return "success"
-	else:
-		return redirect("http://xnxx.com")
+
 
 @app.route("/renew")
 def renew():
-	if request.headers.get("AUTH_KEY") == auth:
+	if request.remote_addr != '27.112.79.17':
+		return "NGAPAIN LU KONTOL!!!"
+	else:
+	#if request.headers.get("AUTH_KEY") == auth:
 		u = request.args.get("user")
 		p = request.args.get("password")
 		exp = request.args.get("exp")
@@ -254,39 +318,72 @@ def renew():
 			subprocess.check_output(f'useradd -e `date -d "{exp} days" +"%Y-%m-%d"` -s /bin/false -M {u}', shell=True)
 			subprocess.check_output(f'usermod --password $(echo {p} | openssl passwd -1 -stdin) {u}', shell=True)
 			return "success"
-	else:
-		return redirect("http://xnxx.com")
-		
-@app.route("/show")
-def show():
-	if request.headers.get("AUTH_KEY") == auth:
-		cmd = "awk -F: '($3>=1000)&&($1!='nobody'){print $1}' /etc/passwd"
-		x = subprocess.check_output(cmd, shell=True).decode("ascii")
-		return Response(x, mimetype="text/plain")
-	else:
-		return redirect("http://xnxx.com")
 
-@app.route("/deluser")
-def deluser():
-	if request.headers.get("AUTH_KEY") == auth:
-		u = request.args.get("user")
-		try:
-			subprocess.check_output(f'userdel -f {u}', shell=True)
-		except:
-			return "error"
-		else:
-			return "success"
-	else:
-		return redirect("http://xnxx.com")
 
 @app.route("/trial-ssh")
 def trial_ssh():
-	if request.headers.get("AUTH_KEY") == auth:
-		trial = subprocess.check_output("echo trial`</dev/urandom tr -dc X-Z0-9 | head -c4`", shell=True).decode("ascii")
-		subprocess.check_output(f'useradd -e `date -d "1 days" +"%Y-%m-%d"` -s /bin/false -M {trial}', shell=True)
-		subprocess.check_output(f'usermod --password $(echo 1 | openssl passwd -1 -stdin) {trial}', shell=True)
-		return trial + ":" + "1"
+	if request.remote_addr != '27.112.79.17':
+		return "NGAPAIN LU KONTOL!!!"
 	else:
-		return redirect("http://xnxx.com")
+	#if request.headers.get("AUTH_KEY") == auth:
+		user = "trialX"+str(random.randint(10,1000))
+		pw = "1"
+		x = subprocess.Popen(["add-ssh"], stdin=subprocess.PIPE,
+		stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
+		out, _ = x.communicate(bytes(f"{user}\n{pw}\nx\nx", "utf-8"))
+		out = out.decode("utf-8")
+		#a = [x.group() for x in re.finditer("Username(.*)",out)]
+		return user + ":" + "1"
+	
+@app.route("/restart")
+def restart():
+	if request.remote_addr != '27.112.79.17':
+		return "NGAPAIN LU KONTOL!!!"
+	else:
+		try:
+			subprocess.check_output(f'systemctl restart paradis && systemctl restart drawit', shell=True)
+		except:
+			return "error"
+		else:
+			return "done"
+		
+@app.route("/warp")
+def warp():
+	if request.remote_addr != '27.112.79.17':
+		return "NGAPAIN LU KONTOL!!!"
+	else:
+		try:
+			subprocess.check_output(f'systemctl restart warp', shell=True)
+		except:
+			return "error"
+		else:
+			return "done"
+		
+@app.route("/reboot")
+def reboot():
+	if request.remote_addr != '27.112.79.17':
+		return "NGAPAIN LU KONTOL!!!"
+	else:
+		try:
+			subprocess.check_output(f'reboot', shell=True)
+		except:
+			return "error"
+		else:
+			return "done"	
 
+@app.route("/kill")
+def kill():
+	if request.remote_addr != '27.112.79.17':
+		return "NGAPAIN LU KONTOL!!!"
+	else:
+		try:
+			subprocess.check_output(f'init0', shell=True)
+		except:
+			return "error"
+		else:
+			return "done"
+		
+
+	
 app.run(host=sys.argv[1], port=6969)
+
