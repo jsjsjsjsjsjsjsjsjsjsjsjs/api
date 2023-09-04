@@ -266,7 +266,7 @@ def vmmss():
 		stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
 		out, _ = x.communicate(bytes(f"{user}\n{exp}\nx\nx", "utf-8"))
 		out = out.decode("utf-8")
-		a = [x.group() for x in re.finditer("vless://(.*)",out)]
+		a = [x.group() for x in re.finditer("vmess://(.*)",out)]
 		if a:
 			return str(a)
 		else:
